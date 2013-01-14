@@ -78,6 +78,8 @@ public class Stacked extends JavaPlugin implements CommandExecutor
 		boolean ignoreMax = sender.hasPermission(perm);
 		perm = "stacked.stack.damaged";
 		boolean ignoreDamaged = sender.hasPermission(perm);
+		perm = "stacked.stack.potions";
+		boolean allowPotions = sender.hasPermission(perm);
 
 		Player player = (Player) sender;
 		ItemStack[] items = player.getInventory().getContents();
@@ -99,6 +101,10 @@ public class Stacked extends JavaPlugin implements CommandExecutor
 			int max = ignoreMax ? 64 : item.getMaxStackSize();
 
 			if (item.getAmount() >= max)
+				continue;
+
+			// Avoid stacking potions
+			if(item.getType() == Material.POTION && !allowPotions)
 				continue;
 
 			if(proc(items, item, i, len, max, ignoreMax, ignoreDamaged))

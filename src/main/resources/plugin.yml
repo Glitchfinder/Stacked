@@ -32,6 +32,7 @@ permissions:
             stacked.stack: true
             stacked.stack.illegitimate: true
             stacked.stack.damaged: true
+            stacked.stack.potions: true
     stacked.stack:
         default: op
         description: "Allows use of the /stack command."
@@ -41,3 +42,6 @@ permissions:
     stacked.stack.damaged:
         default: op
         description: "Allows stacking to combine damaged items."
+    stacked.stack.potions:
+        default: op
+        description: "Allows stacking to combine potions or water bottles."
