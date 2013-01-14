@@ -1,0 +1,43 @@
+author: Glitchfinder
+description: Reimplement's Worldguard's /stack command.
+main: org.stacked.Stacked
+name: Stacked
+version: '1.0'
+
+commands:
+    stack:
+        description: "Stacks items together."
+        usage: "/stack"
+
+permissions:
+    stacked.*:
+        default: op
+        description: "Implies access to everything Stacked does."
+        children:
+            stacked.admin: true
+    stacked.admin:
+        default: op
+        description: "Implies access to everything Stacked does."
+        children:
+            stacked.stack.all: true
+    stacked.stack.*:
+        default: op
+        description: "Implies access to all of the stacking features of Stacked"
+        children:
+            stacked.stack.all: true
+    stacked.stack.all:
+        default: op
+        description: "Implies access to all of the stacking features of Stacked"
+        children:
+            stacked.stack: true
+            stacked.stack.illegitimate: true
+            stacked.stack.damaged: true
+    stacked.stack:
+        default: op
+        description: "Allows use of the /stack command."
+    stacked.stack.illegitimate:
+        default: op
+        description: "Allows stacking to make overly large stacks."
+    stacked.stack.damaged:
+        default: op
+        description: "Allows stacking to combine damaged items."
