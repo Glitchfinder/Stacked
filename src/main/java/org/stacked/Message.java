@@ -36,9 +36,9 @@ public class Message {
 	public static String prefix(Plugin p, ChatColor c) {
 		if (p == null && c == null)
 			return "";
-		else if(p == null)
+		else if (p == null)
 			return c.toString();
-		else if(c == null)
+		else if (c == null)
 			c = ChatColor.WHITE;
 
 		String name = p.getName();
@@ -46,10 +46,10 @@ public class Message {
 	}
 
 	private static boolean send(CommandSender s, String pre, String msg) {
-		if(s == null || msg == null)
+		if (s == null || msg == null)
 			return false;
 
-		if(!(s instanceof Player)) {
+		if (!(s instanceof Player)) {
 			pre = ChatColor.stripColor(pre);
 			msg = ChatColor.stripColor(msg);
 		}
@@ -59,19 +59,19 @@ public class Message {
 		try {
 			messages = msg.split("\\[nN]");
 		}
-		catch(Exception e) {
+		catch (Exception e) {
 			return false;
 		}
 
-		if(messages == null || messages.length < 1)
+		if (messages == null || messages.length < 1)
 			return false;
 
 		s.sendMessage(pre + messages[0]);
 
-		if(messages.length < 2)
+		if (messages.length < 2)
 			return true;
 
-		for(int i = 1; i < messages.length; i++) {
+		for (int i = 1; i < messages.length; i++) {
 			s.sendMessage(messages[i]);
 		}
 

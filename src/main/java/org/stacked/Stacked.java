@@ -45,12 +45,12 @@ public class Stacked extends JavaPlugin implements CommandExecutor {
 		Command command,
 		String label,
 		String[] args) {
-		if(sender == null || command == null)
+		if (sender == null || command == null)
 			return false;
-		else if(label == null || args == null)
+		else if (label == null || args == null)
 			return false;
 
-		if(!(sender instanceof Player)) {
+		if (!(sender instanceof Player)) {
 			String msg = "You have to be a player to do that!";
 			Message.severe(this, sender, msg);
 			return true;

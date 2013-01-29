@@ -38,7 +38,7 @@ public class StackInventory {
 	private Plugin plugin;
 
 	public StackInventory(Plugin p, Player player, boolean sendMessage) {
-		if(p == null || player == null)
+		if (p == null || player == null)
 			return;
 
 		this.player = player;
@@ -56,9 +56,9 @@ public class StackInventory {
 	}
 
 	private boolean compareBooks(ItemStack book1, ItemStack book2) {
-		if(book1.getType() != Material.ENCHANTED_BOOK)
+		if (book1.getType() != Material.ENCHANTED_BOOK)
 			return true;
-		if(book2.getType() != Material.ENCHANTED_BOOK)
+		if (book2.getType() != Material.ENCHANTED_BOOK)
 			return true;
 
 		EnchantmentStorageMeta meta1, meta2;
@@ -69,7 +69,7 @@ public class StackInventory {
 		Map<Enchantment, Integer> map1 = meta1.getStoredEnchants();
 		Map<Enchantment, Integer> map2 = meta2.getStoredEnchants();
 
-		if(map1.equals(map2))
+		if (map1.equals(map2))
 			return true;
 
 		return false;
@@ -79,12 +79,12 @@ public class StackInventory {
 		item2 = items[i];
 
 		// Avoid infinite stacks and stacks with durability
-		if(isWrongSize(item))
+		if (isWrongSize(item))
 			return;
 
 		// Avoid stacking different Enchanted Books together
-		if(item.getType() == Material.ENCHANTED_BOOK) {
-			if(!compareBooks(item, item2))
+		if (item.getType() == Material.ENCHANTED_BOOK) {
+			if (!compareBooks(item, item2))
 				return;
 		}
 
@@ -93,8 +93,8 @@ public class StackInventory {
 			return;
 
 		// Blocks store their color in the damage value
-		if(ItemType.usesDamageValue(item.getTypeId()) || !ignoreDamaged)
-			if(item.getDurability() != item2.getDurability())
+		if (ItemType.usesDamageValue(item.getTypeId()) || !ignoreDamaged)
+			if (item.getDurability() != item2.getDurability())
 				return;
 
 		// Ensure they have the same enchantments
@@ -120,9 +120,9 @@ public class StackInventory {
 	private boolean isWrongSize(ItemStack item) {
 		if (item == null)
 			return true;
-		else if(item.getAmount() <= 0)
+		else if (item.getAmount() <= 0)
 			return true;
-		else if(!ignoreMax && item.getMaxStackSize() == 1)
+		else if (!ignoreMax && item.getMaxStackSize() == 1)
 			return true;
 
 		return false;
@@ -132,7 +132,7 @@ public class StackInventory {
 		item = items[index];
 
 		// Avoid infinite stacks
-		if(isWrongSize(item))
+		if (isWrongSize(item))
 			return;
 
 		max = ignoreMax ? 64 : item.getMaxStackSize();
@@ -144,7 +144,7 @@ public class StackInventory {
 			return;
 
 		// Avoid stacking potions
-		if(item.getType() == Material.POTION && !allowPotions)
+		if (item.getType() == Material.POTION && !allowPotions)
 			return;
 
 		process();
@@ -158,16 +158,16 @@ public class StackInventory {
 		for (i = index + 1; i < length; i++) {
 			innerLoop();
 
-			if(needed <= 0)
+			if (needed <= 0)
 				break;
 		}
 	}
 
 	public boolean stack() {
-		if(!valid)
+		if (!valid)
 			return false;
 
-		if(!player.hasPermission("stacked.stack") && sendMessage) {
+		if (!player.hasPermission("stacked.stack") && sendMessage) {
 			String msg = "You don't have permission to do that!";
 			return Message.severe(plugin, player, msg);
 		}
@@ -184,7 +184,7 @@ public class StackInventory {
 			player.getInventory().setContents(items);
 		}
 
-		if(sendMessage) {
+		if (sendMessage) {
 			String msg = "Items compacted into stacks!";
 			return Message.info(plugin, player, msg);
 		}
