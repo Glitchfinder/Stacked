@@ -36,6 +36,7 @@ package org.stacked;
 public class StackInventory {
 	private boolean valid = false;
 	private boolean allowPotions, ignoreDamaged, ignoreMax, sendMessage;
+	private boolean usesDamage;
 	private int affected, i, index, length, max, needed;
 	private ItemStack item, item2, items[];
 	private Player player;
@@ -113,7 +114,7 @@ public class StackInventory {
 			return;
 
 		// Blocks store their color in the damage value
-		if (ItemType.usesDamageValue(item.getTypeId()) || !ignoreDamaged)
+		if (usesDamage || !ignoreDamaged)
 			if (item.getDurability() != item2.getDurability())
 				return;
 
@@ -155,6 +156,8 @@ public class StackInventory {
 		if (isWrongSize(item))
 			return;
 
+		usesDamage = ItemType.usesDamageValue(item.getTypeId());
+
 		// Check to see if the player is allowed to stack this item
 		if (Stacked.config.itemPermissions) {
 			String perm = "stacked.stack.item." + item.getTypeId();
@@ -162,7 +165,7 @@ public class StackInventory {
 			m.put("default", "op");
 			PluginManager manager = Bukkit.getPluginManager();
 
-			if (!Stacked.config.dataPermissions) {
+			if (!Stacked.config.dataPermissions || !usesDamage) {
 				if (manager.getPermission(perm) == null) {
 					Permission.loadPermission(perm, m);
 				}
@@ -173,11 +176,11 @@ public class StackInventory {
 			else {
 				perm += "." + item.getData().getData();
 
-				if(manager.getPermission(perm) == null) {
+				if (manager.getPermission(perm) == null) {
 					Permission.loadPermission(perm, m);
 				}
 
-				if(!player.hasPermission(perm))
+				if (!player.hasPermission(perm))
 					return;
 			}
 		}
