@@ -21,8 +21,6 @@
 /dist
 /manifest.mf
 
-/world
-
 # Mac filesystem dust
 /.DS_Store
 
@@ -31,7 +29,3 @@
 *.ipr
 *.iws
 .idea/
-
-/src/main/resources/achievement
-/src/main/resources/lang
-

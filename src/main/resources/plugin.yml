@@ -2,7 +2,7 @@ author: Glitchfinder
 description: Reimplement's Worldguard's /stack command.
 main: org.stacked.Stacked
 name: Stacked
-version: '1.0'
+version: ${project.version}-b${BUILD_NUMBER}
 
 commands:
     stack:

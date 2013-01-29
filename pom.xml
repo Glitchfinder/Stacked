@@ -54,14 +54,14 @@
 		<dependency>
 			<groupId>org.bukkit</groupId>
 			<artifactId>bukkit</artifactId>
-			<version>LATEST</version>
+			<version>[1.4.7-R0.2-SNAPSHOT,)</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.sk89q</groupId>
 			<artifactId>worldedit</artifactId>
-			<version>LATEST</version>
+			<version>[5.5.2-SNAPSHOT,)</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
@@ -97,4 +97,3 @@
 		</plugins>
 	</build>
 </project>
-
