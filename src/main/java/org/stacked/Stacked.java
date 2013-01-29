@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012 Sean Porter <glitchkey@gmail.com>
+ * Copyright (c) 2012-2013 Sean Porter <glitchkey@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,10 @@
 package org.stacked;
 
 //* IMPORTS: JDK/JRE
-	//* NOT NEEDED
+	import java.io.File;
+	import java.io.FileOutputStream;
+	import java.io.InputStream;
+	import java.io.OutputStream;
 //* IMPORTS: BUKKIT
 	import org.bukkit.command.Command;
 	import org.bukkit.command.CommandExecutor;
@@ -29,14 +32,55 @@ package org.stacked;
 	//* NOT NEEDED
 
 public class Stacked extends JavaPlugin implements CommandExecutor {
+	public static Configuration config;
 
-	public void onDisable() {
-		getLogger().info("Successfully disabled.");
+	public boolean copyConfig(String filename) {
+		File dest;
+		InputStream is = null;
+		OutputStream out = null;
+
+		try {
+			if (!getDataFolder().exists())
+				getDataFolder().mkdirs();
+
+			dest = new File(getDataFolder(), filename);
+
+			if (!dest.createNewFile())
+				return false;
+
+			is = getClass().getResourceAsStream("/" +  filename);
+			out = new FileOutputStream(dest);
+			byte buffer[] = new byte[1024];
+			int length;
+
+			while ((length = is.read(buffer)) > 0)
+				out.write(buffer, 0, length);
+		}
+		catch(Exception e) {
+			String msg = "Unable to copy " + filename;
+			msg += " to the plugin directory.";
+			getLogger().warning(msg);
+			return false;
+		}
+		finally {
+			try {
+				is.close();
+			}
+			catch(Exception e) {}
+
+			try {
+				out.close();
+			}
+			catch(Exception e) {}
+		}
+
+		return true;
 	}
 
-	public void onEnable() {
-		getCommand("stack").setExecutor(this);
-		getLogger().info("Successfully enabled.");
+	public void loadConfig() {
+		copyConfig("config.yml");
+		File configFile	= new File(getDataFolder(), "config.yml");
+		this.config	= new Configuration(configFile, this);
 	}
 
 	@Override
@@ -59,5 +103,24 @@ public class Stacked extends JavaPlugin implements CommandExecutor {
 		Player player = (Player) sender;
 		StackInventory stacker = new StackInventory(this, player, true);
 		return stacker.stack();
+	}
+
+	public void onDisable() {
+		getLogger().info("Successfully disabled.");
+	}
+
+	public void onEnable() {
+		loadConfig();
+		getCommand("stack").setExecutor(this);
+		getLogger().info("Successfully enabled.");
+	}
+
+	public void reload() {
+		if(this.config != null)
+			this.config.load();
+		else
+			loadConfig();
+
+		getLogger().info("Successfully reloaded!");
 	}
 }

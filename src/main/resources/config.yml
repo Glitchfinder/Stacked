@@ -1,0 +1,68 @@
+#
+#  Stacked Configuration
+#  First generated on ${project.version}-b${BUILD_NUMBER}
+#
+#####
+
+#
+#  Stack Size Settings
+###
+Sizes:
+  # The default maximum stack size.
+  # Stacks bigger than 127 do not render their values correctly in-game.
+  # This setting is ignored if permission-based stack sizes are enabled.
+  Maximum_Size: 64
+  # Permission-based stack size settings:
+  Permissions:
+    # Whether or not custom permission-based stack sizes are enabled.
+    Enabled: false
+    # The list of sizes to check.
+    # These take the form of the permission "stacked.stack.size.[value]".
+    # For example, a maximum size of 128 would be "stacked.stack.size.128".
+    Maximum_Sizes:
+      - 64
+      - 96
+    # Use permissions-based stack-size stacking checks, per item.
+    # This enables permissions such as "stacked.stack.size.[value].[item_id]".
+    # For example, a maximum stack size of 128 for cobble would be:
+    # "stacked.stack.size.128.4".
+    Item_Based: false
+    # Use permissions-based stack-size stacking checks, per item and data value.
+    # This enables permissions such as
+    # "stacked.stack.size.[value].[item_id].[data_value]".
+    # For example, a maximum stack size of 128 for birch planks would be:
+    # "stacked.stack.size.128.5.2".
+    # This setting is ignored if Item_Based_Maximum_Sizes_Enabled is false.
+    # This setting is ignored for items that use variable durability, such as
+    # tools and weapons.
+    Data_Based: false
+
+#
+#  Stacking Settings
+###
+Stacking:
+  # Allow automatic stacking
+  # This enables the use of the permission "stacked.stack.automatic"
+  # This enables players to automatically stack items simply by picking them up.
+  # This also enables players to left-click stacks together into large stacks.
+  Automatic: true
+  # Allow the stacking of damaged items.
+  # This enables the use of the permission "stacked.stack.damaged".
+  Damaged: true
+  # Allow illegitimate stack sizes.
+  # This enables the use of the permission "stacked.stack.illegitimate".
+  Illegitimate: true
+  # Allow the stacking of potions.
+  # This enables the use of the permission "stacked.stack.potions".
+  # This setting is ignored if permissions-based item checks are enabled.
+  Potions: true
+  # Use permissions-based item stacking checks.
+  # This enables permissions such as "stacked.stack.item.[item_id]".
+  # For example, a permission for cobble would be "stacked.stack.item.4".
+  Item_Permissions: false
+  # Use permissions-based item stacking checks, including data.
+  # This checks permissions such as "stacked.stack.item.[item_id].[data_value]".
+  # For example, birch planks would be "stacked.stack.item.5.2".
+  # This setting is ignored if Item_Permissions_Enabled is set to false.
+  # This setting is ignored for items that use variable durability, like tools.
+  Data_Permissions: false
