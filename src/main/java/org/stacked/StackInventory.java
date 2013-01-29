@@ -45,12 +45,28 @@ public class StackInventory {
 		this.plugin = p;
 		this.sendMessage = sendMessage;
 
-		String perm = "stacked.stack.illegitimate";
-		boolean ignoreMax = player.hasPermission(perm);
-		perm = "stacked.stack.damaged";
-		boolean ignoreDamaged = player.hasPermission(perm);
-		perm = "stacked.stack.potions";
-		boolean allowPotions = player.hasPermission(perm);
+		String perm;
+
+		if ((Stacked.config == null) || !Stacked.config.illegitimate)
+			this.ignoreMax = false;
+		else {
+			perm = "stacked.stack.illegitimate";
+		        this.ignoreMax = player.hasPermission(perm);
+		}
+
+		if ((Stacked.config == null) || !Stacked.config.damaged)
+			this.ignoreDamaged = false;
+		else {
+			perm = "stacked.stack.damaged";
+			this.ignoreDamaged = player.hasPermission(perm);
+		}
+
+		if ((Stacked.config == null) || !Stacked.config.potions)
+			this.allowPotions = false;
+		else {
+			perm = "stacked.stack.potions";
+			this.allowPotions = player.hasPermission(perm);
+		}
 
 		valid = true;
 	}

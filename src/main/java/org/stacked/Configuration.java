@@ -65,7 +65,7 @@ public class Configuration extends YamlConfiguration {
 			log.warning(msg);
 		}
 
-		if(!isConfigurationSection("Stacking"))
+		if (!isConfigurationSection("Stacking"))
 			return;
 
 		ConfigurationSection s = getConfigurationSection("Stacking");
@@ -77,13 +77,13 @@ public class Configuration extends YamlConfiguration {
 		dataPermissions	= s.getBoolean("Data_Permissions",	false);
 		itemPermissions	= s.getBoolean("Item_Permissions",	false);
 
-		if(!isConfigurationSection("Sizes"))
+		if (!isConfigurationSection("Sizes"))
 			return;
 
 		s = getConfigurationSection("Sizes");
 		maxSize = s.getInt("Maximum_Size", 64);
 
-		if(!s.isConfigurationSection("Permissions"))
+		if (!s.isConfigurationSection("Permissions"))
 			return;
 
 		s = s.getConfigurationSection("Permissions");
@@ -91,15 +91,15 @@ public class Configuration extends YamlConfiguration {
 		sizeDataPermissions	= s.getBoolean("Data_Based",	false);
 		sizeItemPermissions	= s.getBoolean("Item_Based",	false);
 
-		if(!s.isList("Maximum_Sizes"))
+		if (!s.isList("Maximum_Sizes"))
 			return;
 
 		List<Integer> temp = s.getIntegerList("Maximum_Sizes");
 
-		if(temp != null)
+		if (temp != null)
 			maxSizes = temp;
 
-		if(maxSizes.isEmpty())
+		if (maxSizes.isEmpty())
 			maxSizes.add(64);
 	}
 }

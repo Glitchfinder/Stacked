@@ -116,7 +116,7 @@ public class Stacked extends JavaPlugin implements CommandExecutor {
 	}
 
 	public void reload() {
-		if(this.config != null)
+		if (this.config != null)
 			this.config.load();
 		else
 			loadConfig();
