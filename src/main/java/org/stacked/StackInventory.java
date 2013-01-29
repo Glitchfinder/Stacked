@@ -18,14 +18,18 @@
 package org.stacked;
 
 //* IMPORTS: JDK/JRE
+	import java.util.HashMap;
 	import java.util.Map;
 //* IMPORTS: BUKKIT
+	import org.bukkit.Bukkit;
 	import org.bukkit.enchantments.Enchantment;
 	import org.bukkit.entity.Player;
 	import org.bukkit.inventory.ItemStack;
 	import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 	import org.bukkit.Material;
+	import org.bukkit.permissions.Permission;
 	import org.bukkit.plugin.Plugin;
+	import org.bukkit.plugin.PluginManager;
 //* IMPORTS: OTHER
 	import com.sk89q.worldedit.blocks.ItemType;
 
@@ -150,6 +154,33 @@ public class StackInventory {
 		// Avoid infinite stacks
 		if (isWrongSize(item))
 			return;
+
+		// Check to see if the player is allowed to stack this item
+		if (Stacked.config.itemPermissions) {
+			String perm = "stacked.stack.item." + item.getTypeId();
+			Map<String, Object> m = new HashMap<String, Object>();
+			m.put("default", "op");
+			PluginManager manager = Bukkit.getPluginManager();
+
+			if (!Stacked.config.dataPermissions) {
+				if (manager.getPermission(perm) == null) {
+					Permission.loadPermission(perm, m);
+				}
+
+				if (!player.hasPermission(perm))
+					return;
+			}
+			else {
+				perm += "." + item.getData().getData();
+
+				if(manager.getPermission(perm) == null) {
+					Permission.loadPermission(perm, m);
+				}
+
+				if(!player.hasPermission(perm))
+					return;
+			}
+		}
 
 		max = ignoreMax ? 64 : item.getMaxStackSize();
 		// Need to add config for max size
