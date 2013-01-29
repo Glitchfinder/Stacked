@@ -51,7 +51,7 @@ public class StackInventory {
 			this.ignoreMax = false;
 		else {
 			perm = "stacked.stack.illegitimate";
-		        this.ignoreMax = player.hasPermission(perm);
+			this.ignoreMax = player.hasPermission(perm);
 		}
 
 		if ((Stacked.config == null) || !Stacked.config.damaged)
