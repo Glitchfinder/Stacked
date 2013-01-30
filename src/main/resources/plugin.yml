@@ -30,12 +30,16 @@ permissions:
         description: "Implies access to all of the stacking features of Stacked"
         children:
             stacked.stack: true
+            stacked.stack.automatic: true
             stacked.stack.damaged: true
             stacked.stack.illegitimate: true
             stacked.stack.potions: true
     stacked.stack:
         default: op
         description: "Allows use of the /stack command."
+    stacked.stack.automatic:
+        default: op
+        description: "Allows automatic stacking of items as they are picked up."
     stacked.stack.damaged:
         default: op
         description: "Allows stacking to combine damaged items."
