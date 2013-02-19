@@ -111,6 +111,10 @@ public class ItemMover implements Runnable {
 	}
 
 	public void run() {
+		if (player.isDead() || !player.isValid()) {
+			stop();
+			return;
+		}
 		if (item.isDead() || !item.isValid()) {
 			stop();
 			return;
@@ -120,10 +124,17 @@ public class ItemMover implements Runnable {
 		Location i = item.getLocation();
 
 		item.getVelocity().zero();
-		double x = ((p.getX() - i.getX()) / ((double) ticksRemaining));
-		double py = p.getY() + 1.22D;
-		double y = ((py - i.getY()) / ((double) ticksRemaining));
-		double z = ((p.getZ() - i.getZ()) / ((double) ticksRemaining));
+
+		double x = 0;
+		double y = 0;
+		double z = 0;
+
+		if(ticksRemaining > 0) {
+			x = ((p.getX() - i.getX()) / ((double) ticksRemaining));
+			double py = p.getY() + 1.22D;
+			y = ((py - i.getY()) / ((double) ticksRemaining));
+			z = ((p.getZ() - i.getZ()) / ((double) ticksRemaining));
+		}
 
 		item.setVelocity(new Vector(x, y, z));
 
