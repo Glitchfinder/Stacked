@@ -33,8 +33,6 @@ package org.stacked;
 
 public class Stacked extends JavaPlugin implements CommandExecutor {
 	public static Configuration config;
-	//private StackedListener listener;
-	//private ItemChecker itemChecker;
 
 	public boolean copyConfig(String filename) {
 		File dest;
@@ -108,15 +106,12 @@ public class Stacked extends JavaPlugin implements CommandExecutor {
 	}
 
 	public void onDisable() {
-		//itemChecker.stop();
 		getLogger().info("Successfully disabled.");
 	}
 
 	public void onEnable() {
 		loadConfig();
 		getCommand("stack").setExecutor(this);
-		//listener = new StackedListener(this);
-		//itemChecker = new ItemChecker(this);
 		getLogger().info("Successfully enabled.");
 	}
 
@@ -125,9 +120,6 @@ public class Stacked extends JavaPlugin implements CommandExecutor {
 			this.config.load();
 		else
 			loadConfig();
-
-		//itemChecker.stop();
-		//itemChecker.start();
 
 		getLogger().info("Successfully reloaded!");
 	}
