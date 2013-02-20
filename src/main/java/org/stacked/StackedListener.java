@@ -40,7 +40,7 @@ public class StackedListener implements Listener {
 		Bukkit.getPluginManager().registerEvents(this, plugin);
 		this.plugin = plugin;
 	}
-
+/*
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = false)
 	public void onPlayerPickupItem(PlayerPickupItemEvent event) {
 		if((Stacked.config == null) || !Stacked.config.automatic)
@@ -112,4 +112,5 @@ public class StackedListener implements Listener {
 
 		new ItemMover(plugin, drop, p, stacker, taken);
 	}
+*/
 }
